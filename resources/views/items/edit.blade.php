@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="flex justify-center">
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-300">Update Item</button>
+                        <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-indigo-300">Update Item</button>
                     </div>
                 </form>
             </div>

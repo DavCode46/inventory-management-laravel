@@ -40,13 +40,23 @@
                             <select name="box_id" id="box_id" class="w-full border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 focus:ring focus:ring-indigo-200">
                                 <option value="">Select a box</option>
                                 @foreach ($boxes as $box)
-                                    <option value="{{ $box->id }}">{{ $box->label }}</option>
+                                <option value="{{ $box->id }}">{{ $box->label }}</option>
                                 @endforeach
                             </select>
                         </div>
 
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
                         <div class="flex justify-center">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-zinc-500 font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-300">Create Item</button>
+                            <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-300">Create Item</button>
                         </div>
                     </form>
                 </div>

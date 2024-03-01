@@ -12,16 +12,17 @@
                     <h3 class="text-lg font-semibold text-gray-800">List of Items</h3>
                 </div>
                 <div class="px-6 py-4">
-                    <a href="{{ route('items.create') }}" class="inline-block bg-indigo-500 hover:bg-indigo-600 text-zinc-500 font-bold py-2 px-4 w-5 rounded">
+                    <a href="{{ route('items.create') }}" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 w-20 rounded">
                         Add New Item
                     </a>
                 </div>
                 <div class="px-6 py-4">
-                    <form action="{{ route('items.search') }}" method="GET">
-                        <input type="text" id="searchInput" name="q" placeholder="Search items...">
-
-                        <button type="submit">Search</button>
-                    </form>
+                    <div class="px-6 py-4">
+                        <form action="{{ route('items.search') }}" method="GET" id="searchForm">
+                            <input type="text" id="searchInput" name="q" placeholder="Search items..." class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                            <button type="submit" class="inline-block px-4 py-2 bg-indigo-500 text-white font-bold rounded-md ml-2 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">Search</button>
+                        </form>
+                    </div>
                 </div>
                 <div class="px-6 py-4">
                     <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -57,9 +58,20 @@
                                             No box
                                             @endif
                                         </td>
-                                        <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">
+                                        <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500 flex">
+                                            <a href="{{ route('items.show', $item->id) }}" class="text-blue-600 hover:text-blue-800 mr-4">View</a>
+                                            @if ($item->loans->isEmpty())
+                                            <a href="{{ route('loans.index', ['itemId' => $item->id]) }}" class="text-zinc-500 hover:text-zinc-800 mr-4">Loan</a>
+
+                                            @else
+                                            <a href="{{ route('items.return', $item->id) }}" class="text-zinc-500 hover:text-zinc-800 mr-4">Return</a>
+                                            @endif
                                             <a href="{{ route('items.edit', $item->id) }}" class="text-indigo-600 hover:text-indigo-800 mr-4">Edit</a>
-                                            <a href="{{ route('items.destroy', $item->id) }}" class="text-red-600 hover:text-red-800">Delete</a>
+                                            <form action="{{ route('items.destroy', $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-red-600 hover:text-red-800">Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach

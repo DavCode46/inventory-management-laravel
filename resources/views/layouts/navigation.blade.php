@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('boxes.index')" :active="request()->routeIs('boxes')">
                         {{ __('Boxes') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('loans.index')" :active="request()->routeIs('loans')">
+                        {{ __('Loans') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -81,6 +84,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('boxes.index')" :active="request()->routeIs('boxes')">
                 {{ __('Boxes') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('loans.index')" :active="request()->routeIs('loans')">
+                {{ __('Loans') }}
             </x-responsive-nav-link>
         </div>
 

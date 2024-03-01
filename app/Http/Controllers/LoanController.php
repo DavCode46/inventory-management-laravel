@@ -5,17 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Loan;
+use App\Models\Item;
 
 class LoanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index()
     {
-        $loans = Loan::all();
-        return view('loans.index', compact('loans'));
+        $items = Item::all(); // Obtener todos los ítems disponibles para préstamo
+        $item = Item::first(); // Obtener un ítem (esto es solo un ejemplo, ajusta según tus necesidades)
+        return view('loans.index', compact('items', 'item'));
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -85,5 +90,20 @@ class LoanController extends Controller
         $loan->delete();
 
         return redirect()->route('loans.index')->with('success', 'Loan deleted successfully');
+    }
+
+    public function return(Request $request, $id)
+    {
+        $loan = Loan::findOrFail($id);
+
+        // Lógica para devolver el préstamo
+        if ($loan->returned_date) {
+            // El artículo ya ha sido devuelto, puedes agregar una lógica adicional si es necesario
+        } else {
+            // El artículo aún no ha sido devuelto, actualiza la fecha de devolución
+            $loan->update(['returned_date' => now()]);
+        }
+
+        return redirect()->route('items.index')->with('success', 'Préstamo actualizado correctamente');
     }
 }

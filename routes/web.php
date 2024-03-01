@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\BoxController;
+use App\Http\Controllers\LoanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,8 +32,21 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/items/search', [ItemController::class, 'search'])->name('items.search');
+Route::get('/items/{id}/lend', [ItemController::class, 'lend'])->name('items.lend');
+Route::delete('/items/{id}', [ItemController::class, 'destroy'])->name('items.destroy');
+Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
+
 
 Route::resource('items', ItemController::class)->middleware('auth');
 Route::resource('boxes', BoxController::class)->middleware('auth');
+Route::resource('loans', LoanController::class)->middleware('auth');
+
+Route::put('/loans/{id}/return', [LoanController::class, 'return'])->name('loans.return');
+Route::get('/items/{item}/loans', [LoanController::class, 'index'])->name('items.loans.index');
+Route::post('/items/{id}/lend', [ItemController::class, 'lend'])->name('items.lend');
+Route::get('items/{id}/return', [ItemController::class, 'return'])->name('items.return');
+
+
+
 
 require __DIR__.'/auth.php';

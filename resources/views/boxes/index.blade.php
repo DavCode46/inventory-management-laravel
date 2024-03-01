@@ -29,7 +29,7 @@
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">{{ $box->location }}</td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">
                                             <a href="{{ route('boxes.show', $box->id) }}" class="text-indigo-600 hover:text-indigo-800 mr-4">View</a>
-                                            <a href="{{ route('boxes.edit', $box->id) }}" class="text-blue-600 hover:text-blue-800 mr-4">Edit</a>
+                                            <a href="{{ route('boxes.edit', $box->id) }}" class="text-indigo-600 hover:text-indigo-800 mr-4">Edit</a>
                                             <form action="{{ route('boxes.destroy', $box->id) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="px-6 py-4">
-                    <a href="{{ route('boxes.create') }}" class="bg-blue-500 hover:bg-blue-600 text-zinc-500 font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-300">Create New Box</a>
+                    <a href="{{ route('boxes.create') }}" class="bg-indigo-500 hover:bg-indigo-600 text-zinc-500 font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-indigo-300">Create New Box</a>
                 </div>
             </div>
         </div>
