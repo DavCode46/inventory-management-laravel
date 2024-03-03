@@ -47,7 +47,7 @@
                                             @if ($item->picture)
                                             <img src="{{ $item->picture }}" alt="{{ $item->name }}" class="w-12 h-12 object-cover rounded-full">
                                             @else
-                                            <span class="text-gray-400">No Image</span>
+                                            <img src="https://media.istockphoto.com/id/1197121742/es/foto/feliz-perro-shiba-inu-en-amarillo-retrato-de-sonrisa-de-perro-japon%C3%A9s-pelirrojo.jpg?s=612x612&w=0&k=20&c=PsuH8tPrwpZ8erOsqeyUOS6Q6kVQ1Lj0Jf0fsQUCuLQ=" alt="{{ $item->name }}" class="w-64 h-64 object-cover rounded-lg">
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">${{ $item->price }}</td>
@@ -58,19 +58,23 @@
                                             No box
                                             @endif
                                         </td>
-                                        <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500 flex">
-                                            <a href="{{ route('items.show', $item->id) }}" class="text-blue-600 hover:text-blue-800 mr-4">View</a>
+                                        <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500 flex flex-col my-28">
+                                            <a href="{{ route('items.show', $item->id) }}" class="bg-indigo-500 hover:bg-indigo-600 py-3 px-4 rounded-md text-white my-1">View</a>
                                             @if ($item->loans->isEmpty())
-                                            <a href="{{ route('loans.index', ['itemId' => $item->id]) }}" class="text-zinc-500 hover:text-zinc-800 mr-4">Loan</a>
-
+                                            <a href="{{ route('loans.create', ['itemId' => $item->id]) }}" class="bg-zinc-500 hover:bg-zinc-800  py-3 px-4 rounded-md text-white my-1">Lend</a>
                                             @else
-                                            <a href="{{ route('items.return', $item->id) }}" class="text-zinc-500 hover:text-zinc-800 mr-4">Return</a>
+                                            <form action="{{ route('loans.return', $item->id) }}" method="POST">
+                                                @csrf
+                                                <button class=" bg-zinc-500 hover:bg-zinc-600 text-white px-4 py-3 rounded-md" type="submit">Return</button>
+                                            </form>
+
                                             @endif
-                                            <a href="{{ route('items.edit', $item->id) }}" class="text-indigo-600 hover:text-indigo-800 mr-4">Edit</a>
+
+                                            <a href="{{ route('items.edit', $item->id) }}" class=" bg-yellow-500 hover:bg-yellow-600  py-3 px-4 rounded-md text-white my-1">Edit</a>
                                             <form action="{{ route('items.destroy', $item->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-800">Delete</button>
+                                                <button type="submit" class="bg-red-500 hover:bg-red-600  py-3 px-4 rounded-md text-white my-1">Delete</button>
                                             </form>
                                         </td>
                                     </tr>

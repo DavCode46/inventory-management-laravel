@@ -25,7 +25,7 @@
                         @if ($item->picture)
                             <img src="{{ $item->picture }}" alt="{{ $item->name }}" class="w-64 h-64 object-cover rounded-lg">
                         @else
-                            <span class="text-gray-500">No Image Available</span>
+                            <img src="https://media.istockphoto.com/id/1197121742/es/foto/feliz-perro-shiba-inu-en-amarillo-retrato-de-sonrisa-de-perro-japon%C3%A9s-pelirrojo.jpg?s=612x612&w=0&k=20&c=PsuH8tPrwpZ8erOsqeyUOS6Q6kVQ1Lj0Jf0fsQUCuLQ=" alt="{{ $item->name }}" class="w-64 h-64 object-cover rounded-lg">
                         @endif
                     </div>
                     <div class="mb-4">
@@ -36,6 +36,11 @@
                         <label class="block text-gray-700 text-sm font-semibold mb-2">Box:</label>
                         <p class="text-gray-900">{{ $item->box->label ?? 'No box' }}</p>
                     </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-semibold mb-2">Created At:</label>
+                        <p class="text-gray-900">{{ $item->created_at->format('Y-m-d H:i:s') }}</p>
+                    </div>
+                    <a href="{{ route('items.index')}}" class=" bg-indigo-500 hover:bg-indigo-600 rounded-md text-white py-3 px-4">Items</a>
                 </div>
             </div>
         </div>
