@@ -28,12 +28,12 @@
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm font-medium text-gray-900">{{ $box->label }}</td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">{{ $box->location }}</td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">
-                                            <a href="{{ route('boxes.show', $box->id) }}" class="text-indigo-600 hover:text-indigo-800 mr-4">View</a>
-                                            <a href="{{ route('boxes.edit', $box->id) }}" class="text-indigo-600 hover:text-indigo-800 mr-4">Edit</a>
+                                            <a href="{{ route('boxes.show', $box->id) }}" class="bg-indigo-500 hover:bg-indigo-600 mr-4 text-white px-4 py-3 rounded-md">View</a>
+                                            <a href="{{ route('boxes.edit', $box->id) }}" class="bg-yellow-500 hover:bg-yellow-600 mr-4 text-white px-4 py-3 rounded-md">Edit</a>
                                             <form action="{{ route('boxes.destroy', $box->id) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-800">Delete</button>
+                                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-3 rounded-md">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="px-6 py-4">
-                    <a href="{{ route('boxes.create') }}" class="bg-indigo-500 hover:bg-indigo-600 text-zinc-500 font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-indigo-300">Create New Box</a>
+                    <a href="{{ route('boxes.create') }}" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-indigo-300">Create New Box</a>
                 </div>
             </div>
         </div>
