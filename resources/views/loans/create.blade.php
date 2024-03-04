@@ -13,33 +13,34 @@
                         @csrf
 
                         <div class="mt-4">
-                            <x-label for="user_id" :value="__('User')" />
-
-                            <x-input id="user_id" class="block mt-1 w-full" type="text" name="user_id" :value="old('user_id')" required autofocus />
+                            <label for="user_id" class="block font-medium text-sm text-gray-700">User</label>
+                            <input id="user_id" class="block mt-1 w-full" type="text" name="user_id" value="{{ auth()->user()->id }}" readonly required />
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="item_id" :value="__('Item')" />
-
-                            <x-input id="item_id" class="block mt-1 w-full" type="text" name="item_id" :value="old('item_id')" required />
+                            <label for="item_id" class="block font-medium text-sm text-gray-700">Item</label>
+                            <select id="item_id" name="item_id" class="block mt-1 w-full" required>
+                                <option value="">Select Item</option>
+                                @foreach ($items as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="checkout_date" :value="__('Checkout Date')" />
-
-                            <x-input id="checkout_date" class="block mt-1 w-full" type="date" name="checkout_date" :value="old('checkout_date')" required />
+                            <label for="checkout_date" class="block font-medium text-sm text-gray-700">Checkout Date</label>
+                            <input id="checkout_date" class="block mt-1 w-full" type="date" name="checkout_date" value="{{ old('checkout_date') }}" required />
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="due_date" :value="__('Due Date')" />
-
-                            <x-input id="due_date" class="block mt-1 w-full" type="date" name="due_date" :value="old('due_date')" required />
+                            <label for="due_date" class="block font-medium text-sm text-gray-700">Due Date</label>
+                            <input id="due_date" class="block mt-1 w-full" type="date" name="due_date" value="{{ old('due_date') }}" required />
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                            <x-button class="ml-4">
-                                {{ __('Create Loan') }}
-                            </x-button>
+                            <button type="submit" class="ml-4 inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500 active:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                Create Loan
+                            </button>
                         </div>
                     </form>
                 </div>

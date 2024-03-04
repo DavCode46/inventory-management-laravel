@@ -136,43 +136,4 @@ class ItemController extends Controller
 
         return view('items.index', compact('items'));
     }
-
-    public function lend($id)
-    {
-        // Lógica para realizar el préstamo aquí
-
-        // Por ejemplo, crear un registro en la tabla de préstamos
-        Loan::create([
-            'item_id' => $id,
-            'user_id' => auth()->id(), // Suponiendo que tengas un sistema de autenticación y el usuario actual esté autenticado
-            'checkout_date' => now(), // Fecha actual como fecha de préstamo
-            'due_date' => now()->addDays(7), // Fecha de vencimiento 7 días después de la fecha de préstamo
-        ]);
-
-        // Redireccionar de vuelta al listado de ítems con un mensaje de éxito
-        return redirect()->route('items.index')->with('success', 'Item lent successfully');
-    }
-
-    public function returnItem($id)
-    {
-        // Obtener el artículo basado en su ID
-        $item = Item::findOrFail($id);
-
-        // Verificar si el artículo está prestado
-        if ($item->is_loaned) {
-            // Actualizar el estado del préstamo (por ejemplo, establecer la fecha de devolución)
-            $loan = Loan::where('item_id', $item->id)->whereNull('returned_date')->first();
-            if ($loan) {
-                $loan->returned_date = now();
-                $loan->save();
-            }
-
-            // Aquí puedes realizar otras acciones, como enviar notificaciones al usuario que prestó el artículo
-
-            return redirect()->route('items.index')->with('success', 'Item returned successfully');
-        } else {
-            // El artículo no está prestado
-            return redirect()->route('items.index')->with('error', 'Item is not currently loaned');
-        }
-    }
 }

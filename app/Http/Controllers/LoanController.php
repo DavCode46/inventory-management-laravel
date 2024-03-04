@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Loan;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreLoanRequest;
+use App\Http\Requests\UpdateLoanRequest;
 use App\Models\Item;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
+
+
 
 class LoanController extends Controller
 {
@@ -22,12 +26,13 @@ class LoanController extends Controller
         ]);
     }
 
+
     /**
      * Show the form for creating a new resource.
-     */
-    public function create(): View
+     */ public function create(): View
     {
         $selectedItem = request()->input('item_id');
+
 
         return view('loans.create', [
             'items' => Item::all(),
@@ -51,7 +56,7 @@ class LoanController extends Controller
 
         Loan::create($validated);
 
-        return redirect()->route('loans.index');
+        return redirect(route('loans.index'))->with('success', 'Préstamo creado correctamente');
     }
 
     /**
@@ -59,12 +64,16 @@ class LoanController extends Controller
      */
     public function show(Loan $loan): View
     {
+        $loans = Loan::all(); // or any other logic to get the loans
+    
         return view('loans.show', [
             'loan' => $loan,
             'item' => $loan->item,
             'user' => $loan->user,
+            'loans' => $loans,
         ]);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -79,11 +88,8 @@ class LoanController extends Controller
      */
     public function update(Request $request, Loan $loan)
     {
-        $loan->update([
-            'returned_date' => now(),
-        ]);
-
-        return redirect()->route('loans.index');
+        $loan->update(['returned_date' => now()]);
+        return redirect(route('loans.index'));
     }
 
     /**
@@ -92,5 +98,12 @@ class LoanController extends Controller
     public function destroy(Loan $loan)
     {
         //
+    }
+    public function return(Loan $loan)
+    {
+        $loan->is_returned = true;
+        $loan->save();
+    
+        return redirect()->route('loans.index');
     }
 }

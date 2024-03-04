@@ -52,23 +52,22 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">${{ $item->price }}</td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">
-                                            @if ($item->box_id)
+                                            @isset ($item->box)
                                             {{ $item->box->label }}
                                             @else
                                             No box
-                                            @endif
+                                            @endisset
                                         </td>
+
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500 flex flex-col my-28">
                                             <a href="{{ route('items.show', $item->id) }}" class="bg-indigo-500 hover:bg-indigo-600 py-3 px-4 rounded-md text-white my-1">View</a>
-                                            @if ($item->loans->isEmpty())
-                                            <a href="{{ route('loans.create', ['itemId' => $item->id]) }}" class="bg-zinc-500 hover:bg-zinc-800  py-3 px-4 rounded-md text-white my-1">Lend</a>
+                                            @if ($item->loans()->whereNull('returned_date')->first())
+                                            <a href="{{ route('loans.show', $item->loans()->whereNull('returned_date')->first()->id) }}" class=" bg-indigo-500 hover:bg-indigo-600 px-4 py-3 rounded-md text-white">loan</a>
                                             @else
-                                            <form action="{{ route('loans.return', $item->id) }}" method="POST">
-                                                @csrf
-                                                <button class=" bg-zinc-500 hover:bg-zinc-600 text-white px-4 py-3 rounded-md" type="submit">Return</button>
-                                            </form>
-
+                                            <a href="{{ route('loans.create', ['item_id' => $item->id]) }}" class=" text-white bg-green-500 hover:bg-green-600 px-4 py-3 rounded-md">Lend</a>
                                             @endif
+
+
 
                                             <a href="{{ route('items.edit', $item->id) }}" class=" bg-yellow-500 hover:bg-yellow-600  py-3 px-4 rounded-md text-white my-1">Edit</a>
                                             <form action="{{ route('items.destroy', $item->id) }}" method="POST">
