@@ -60,20 +60,20 @@
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500 flex flex-col my-28">
-                                            <a href="{{ route('items.show', $item->id) }}" class="bg-indigo-500 hover:bg-indigo-600 py-3 px-4 rounded-md text-white my-1">View</a>
+                                            <a href="{{ route('items.show', $item->id) }}" class="border border-zinc-500 py-3 px-4 rounded-md text-zinc-500 hover:bg-zinc-500 active:bg-zinc-700 hover:text-white transition-all duration-300 my-1">View</a>
                                             @if ($item->loans()->whereNull('returned_date')->first())
-                                            <a href="{{ route('loans.show', $item->loans()->whereNull('returned_date')->first()->id) }}" class=" bg-indigo-500 hover:bg-indigo-600 px-4 py-3 rounded-md text-white">loan</a>
+                                            <a href="{{ route('loans.show', $item->loans()->whereNull('returned_date')->first()->id) }}" class=" bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 px-4 py-3 rounded-md transition-all duration-300 text-white">Return</a>
                                             @else
-                                            <a href="{{ route('loans.create', ['item_id' => $item->id]) }}" class=" text-white bg-green-500 hover:bg-green-600 px-4 py-3 rounded-md">Lend</a>
+                                            <a href="{{ route('loans.create', ['item_id' => $item->id]) }}" class=" border border-indigo-500 text-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 hover:text-white transition-all duration-300 px-4 py-3 rounded-md">Lend</a>
                                             @endif
 
 
 
-                                            <a href="{{ route('items.edit', $item->id) }}" class=" bg-yellow-500 hover:bg-yellow-600  py-3 px-4 rounded-md text-white my-1">Edit</a>
+                                            <a href="{{ route('items.edit', $item->id) }}" class="border border-yellow-500 text-yellow-500 hover:bg-yellow-500 active:bg-yellow-700  py-3 px-4 rounded-md hover:text-white transition-all duration-300 my-1">Edit</a>
                                             <form action="{{ route('items.destroy', $item->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="bg-red-500 hover:bg-red-600  py-3 px-4 rounded-md text-white my-1">Delete</button>
+                                                <button type="submit" class="border border-red-500 text-red-500 hover:bg-red-600 active:bg-red-700  py-3 px-4 rounded-md transition-all duration-300 hover:text-white my-1">Delete</button>
                                             </form>
                                         </td>
                                     </tr>

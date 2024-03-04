@@ -38,15 +38,15 @@
                                     <form action="{{ route('loans.update', $loan->id) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="text-blue-600 hover:underline focus:outline-none">
+                                        <button type="submit" class="text-indigo-500 hover:bg-indigo-500 active:bg-indigo-600 border border-indigo-500 transition-all duration-300 hover:text-white px-4 py-3 rounded-md">
                                             Mark as Returned
                                         </button>
                                     </form>
                                     @else
-                                    <span class="text-red-600">Not returned</span>
+                                    <span class="text-red-600 border border-red-500 hover:bg-red-500 active:bg-red-600 transition-all duration-300 hover:text-white px-4 py-3 rounded-md">Not returned</span>
                                     @endif
                                     @else
-                                    <a href="{{ route('loans.show', $loan->id) }}" class="text-green-600 hover:underline">View Loan</a>
+                                    <a href="{{ route('loans.show', $loan->id) }}" class="border text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white px-4 py-3 rounded-md transition-all duration-300">View Loan</a>
                                     @endif
                                 </td>
                             </tr>

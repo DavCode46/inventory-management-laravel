@@ -28,12 +28,12 @@
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm font-medium text-gray-900">{{ $box->label }}</td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">{{ $box->location }}</td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">
-                                            <a href="{{ route('boxes.show', $box->id) }}" class="bg-indigo-500 hover:bg-indigo-600 mr-4 text-white px-4 py-3 rounded-md">View</a>
-                                            <a href="{{ route('boxes.edit', $box->id) }}" class="bg-yellow-500 hover:bg-yellow-600 mr-4 text-white px-4 py-3 rounded-md">Edit</a>
+                                            <a href="{{ route('boxes.show', $box->id) }}" class="border border-indigo-500 text-indigo-500 hover:bg-indigo-600 mr-4 active:bg-indigo-700 hover:text-white px-4 py-3 rounded-md transition-all duration-300">View</a>
+                                            <a href="{{ route('boxes.edit', $box->id) }}" class="border border-yellow-500 text-yellow-500 hover:bg-yellow-500 mr-4 active:bg-yellow-600 hover:text-white px-4 py-3 rounded-md transition-all duration-300">Edit</a>
                                             <form action="{{ route('boxes.destroy', $box->id) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-3 rounded-md">Delete</button>
+                                                <button type="submit" class="border border-red-500 text-red-500 hover:bg-red-600 active:bg-red-700 hover:text-white px-4 py-3 rounded-md transition-all duration-300">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
