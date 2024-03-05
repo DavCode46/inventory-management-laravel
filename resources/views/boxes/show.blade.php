@@ -48,6 +48,7 @@
                             @endforeach
                         </ul>
                     @endif
+                    <a href="{{ route('boxes.index')}}" class=" bg-indigo-500 hover:bg-indigo-600 rounded-md text-white py-3 px-4">Boxes</a>
                 </div>
             </div>
         </div>
