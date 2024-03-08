@@ -22,9 +22,16 @@
                             <select id="item_id" name="item_id" class="block mt-1 w-full" required>
                                 <option value="">Select Item</option>
                                 @foreach ($items as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @php
+                                // Verificar si el elemento ya ha sido prestado
+                                $loaned = $item->loans()->whereNull('returned_date')->exists();
+                                @endphp
+                                @unless ($loaned)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endunless
                                 @endforeach
                             </select>
+
                         </div>
 
                         <div class="mt-4">

@@ -23,9 +23,9 @@
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-semibold mb-2">Picture:</label>
                         @if ($item->picture)
-                            <img src="{{ $item->picture }}" alt="{{ $item->name }}" class="w-64 h-64 object-cover rounded-lg">
+                        <img src="{{ asset(Storage::url($item->picture)) }}" alt="{{ $item->name }}" class="h-20 w-20">
                         @else
-                            <img src="https://media.istockphoto.com/id/1197121742/es/foto/feliz-perro-shiba-inu-en-amarillo-retrato-de-sonrisa-de-perro-japon%C3%A9s-pelirrojo.jpg?s=612x612&w=0&k=20&c=PsuH8tPrwpZ8erOsqeyUOS6Q6kVQ1Lj0Jf0fsQUCuLQ=" alt="{{ $item->name }}" class="w-64 h-64 object-cover rounded-lg">
+                            <p class="text-gray-900">No picture</p>
                         @endif
                     </div>
                     <div class="mb-4">

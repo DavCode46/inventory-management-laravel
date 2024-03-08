@@ -19,8 +19,9 @@
                         <p class="text-gray-700"><strong>Item Name:</strong> {{ $loan->item->name }}</p>
                     @endif
                 </div>
-                
+
                 @if(!$loan->returned_date)
+                    @if($loan->user_id === Auth::id())
                     <form method="POST" action="{{ route('loans.update', $loan->id) }}">
                         @csrf
                         @method('PUT')
@@ -28,6 +29,7 @@
                             <button type="submit" class="px-6 py-3 bg-blue-600 rounded-lg text-white font-semibold hover:bg-blue-700 focus:ring-blue-400 focus:ring-opacity-75 transition-colors duration-300">Mark as returned</button>
                         </div>
                     </form>
+                    @endif
                 @else
                     <div class="mb-6">
                         <p class="text-gray-700"><strong>Returned Date:</strong> {{ $loan->returned_date }}</p>

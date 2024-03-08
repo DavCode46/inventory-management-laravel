@@ -45,30 +45,27 @@
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">{{ $item->description }}</td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">
                                             @if ($item->picture)
-                                            <img src="{{ $item->picture }}" alt="{{ $item->name }}" class="w-12 h-12 object-cover rounded-full">
+                                            <img src="{{ asset(Storage::url($item->picture)) }}" alt="{{ $item->name }}" class="h-20 w-20">
+
                                             @else
-                                            <img src="https://media.istockphoto.com/id/1197121742/es/foto/feliz-perro-shiba-inu-en-amarillo-retrato-de-sonrisa-de-perro-japon%C3%A9s-pelirrojo.jpg?s=612x612&w=0&k=20&c=PsuH8tPrwpZ8erOsqeyUOS6Q6kVQ1Lj0Jf0fsQUCuLQ=" alt="{{ $item->name }}" class="w-64 h-64 object-cover rounded-lg">
+                                                <p class="text-gray-900">No picture</p>
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">${{ $item->price }}</td>
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500">
                                             @isset ($item->box)
-                                            {{ $item->box->label }}
+                                                {{ $item->box->label }}
                                             @else
-                                            No box
+                                                No box
                                             @endisset
                                         </td>
-
                                         <td class="px-6 py-4 whitespace-no-wrap text-sm text-gray-500 flex flex-col my-28">
                                             <a href="{{ route('items.show', $item->id) }}" class="border border-zinc-500 py-3 px-4 rounded-md text-zinc-500 hover:bg-zinc-500 active:bg-zinc-700 hover:text-white transition-all duration-300 my-1">View</a>
                                             @if ($item->loans()->whereNull('returned_date')->first())
-                                            <a href="{{ route('loans.show', $item->loans()->whereNull('returned_date')->first()->id) }}" class=" bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 px-4 py-3 rounded-md transition-all duration-300 text-white">Return</a>
+                                                <a href="{{ route('loans.show', $item->loans()->whereNull('returned_date')->first()->id) }}" class=" bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 px-4 py-3 rounded-md transition-all duration-300 text-white">Return</a>
                                             @else
-                                            <a href="{{ route('loans.create', ['item_id' => $item->id]) }}" class=" border border-indigo-500 text-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 hover:text-white transition-all duration-300 px-4 py-3 rounded-md">Lend</a>
+                                                <a href="{{ route('loans.create', ['item_id' => $item->id]) }}" class=" border border-indigo-500 text-indigo-500 hover:bg-indigo-600 active:bg-indigo-700 hover:text-white transition-all duration-300 px-4 py-3 rounded-md">Lend</a>
                                             @endif
-
-
-
                                             <a href="{{ route('items.edit', $item->id) }}" class="border border-yellow-500 text-yellow-500 hover:bg-yellow-500 active:bg-yellow-700  py-3 px-4 rounded-md hover:text-white transition-all duration-300 my-1">Edit</a>
                                             <form action="{{ route('items.destroy', $item->id) }}" method="POST">
                                                 @csrf

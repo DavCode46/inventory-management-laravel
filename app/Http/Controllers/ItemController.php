@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Validation\ValidationException;
 use App\Models\Loan;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Box;
 
@@ -36,31 +37,24 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'description' => 'nullable|string|max:500',
-                'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable', // Asegúrate de que el campo 'picture' sea una imagen
-                'price' => 'nullable|numeric',
-                'box_id' => 'nullable|exists:boxes,id',
-            ]);
-
-            // Guardar la imagen en el almacenamiento
-            if ($request->hasFile('picture')) {
-                $path = $request->file('picture')->store('public/images');
-                $validated['picture'] = asset(str_replace('public', 'storage', $path));
-            }
+        // dd($request->all()); esto me permite ver el array que se envia.
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'nullable|max:255',
+            'price' => 'nullable|numeric',
+            'box_id' => 'nullable|exists:boxes,id',
+            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
+        ]);
 
 
-            // Crear un nuevo ítem con los datos validados
-            Item::create($validated);
-
-            return redirect()->route('items.index')->with('success', 'Item created successfully');
-        } catch (ValidationException $e) {
-            return redirect()->route('items.create')
-                ->withErrors($e->errors())
-                ->withInput();
+        if ($request->hasFile('picture')) {
+            $validated['picture'] = $request->file('picture')->store('public/images');
         }
+
+
+        Item::create($validated);
+
+        return redirect('items')->with('success', 'Item created successfully');
     }
 
 
@@ -91,27 +85,30 @@ class ItemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Item $item)
     {
-        // $this->authorize('update', $item);
-
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string|max:500',
-            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable', // Asegúrate de que el campo 'picture' sea una imagen
-            'price' => 'nullable|numeric',
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'price' => 'required|numeric',
             'box_id' => 'nullable|exists:boxes,id',
+            'picture ' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|nullable',
         ]);
 
+
         if ($request->hasFile('picture')) {
-            $path = $request->file('picture')->store('public/images');
-            $validated['picture'] = asset(str_replace('public', 'storage', $path));
+            $validated['picture'] = $request->file('picture')->store('public/images');
+
+            if ($item->picture) {
+                Storage::delete($item->picture);
+            }
         }
 
-        Item::whereId($id)->update($validated);
+        $item->update($validated);
 
-        return redirect()->route('items.index')->with('success', 'Item updated successfully');
+        return redirect('items');
     }
+
 
 
     /**

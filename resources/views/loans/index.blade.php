@@ -15,7 +15,7 @@
                     <h3 class="text-lg font-semibold text-gray-800">Loans</h3>
                 </div>
                 <div class="border rounded-lg p-4 my-4">
-                
+
                     @if ($loans->isNotEmpty())
                     <table class="min-w-full">
                         <thead>
@@ -60,7 +60,7 @@
                     @else
                     <p class="text-gray-500">No loans made.</p>
                     @endif
-                  
+
                 </div>
             </div>
         </div>
